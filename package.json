@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "algoliasearch": "^3.31.0",
+    "request-promise-native": "^1.0.5",
+    "striptags": "^3.1.1"
+  }
+}
