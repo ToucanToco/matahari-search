@@ -7,15 +7,29 @@ const index = client.initIndex('confluence');
 // Confluence index settings
 index.setSettings({ attributeForDistinct: 'name' });
 
-const run = () => {
+const run = (from = 0) => {
   const saveObjects = (link = '/rest/api/content') => {
-    return confluenceGet(link).then(json => {
-      index.saveObjects(parseDocuments(json.results)).then(res => {
-        if (json._links.next) saveObjects(json._links.next);
+    let lastUpdatedAt = 0;
+    return confluenceGet(link)
+      .then(json => {
+        let documents = json.results;
+        index.saveObjects(parseDocuments(documents))
+        .then(res => {
+
+          lastUpdatedAt = new Date(
+            documents[documents.length - 1].lastUpdatedAt
+          ).getTime();
+          if (json._links.next && lastUpdatedAt >= from)
+            saveObjects(json._links.next);
+        });
       });
-    });
   };
   saveObjects();
 };
 
-run();
+const args = process.argv.slice(2);
+const from = args.length
+  ? new Date(args[0]).getTime()
+  : Date.now() - 10 * 60 * 1000;
+
+run(from);
