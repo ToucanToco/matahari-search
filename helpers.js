@@ -21,7 +21,7 @@ module.exports = {
       // GET parameters
       qs: {
         limit: 20, // number of item per page
-        orderBy: 'history.lastUpdated', // sort them by last updated
+        orderBy: 'history.lastUpdated.when', // sort them by last updated
         expand: [
           // fields to retrieve
           'history.lastUpdated',
@@ -85,6 +85,9 @@ module.exports = {
         content: null
       };
       let content = parseContent(doc.body.view.value);
+      if (!content.length) {
+        return record;
+      }
       while (content.length) {
         // extract the first 600 characters (without splitting words)
         const chunk = content.replace(/^(.{600}[^\s]*).*/, '$1');

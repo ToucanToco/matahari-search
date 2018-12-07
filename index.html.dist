@@ -1,0 +1,62 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Toucan Confluence Search</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4/dist/instantsearch-theme-algolia.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.4"></script>
+  </head>
+  <body>
+    <div id="search-box">
+      <!-- SearchBox widget will appear here -->
+    </div>
+    <div id="refinement-list">
+      <!-- RefinementList widget will appear here -->
+    </div>
+    <div id="hits">
+      <!-- Hits widget will appear here -->
+    </div>
+
+    <script type="text/javascript">
+      const options = {
+        appId: 'INSERT APP ID',
+        apiKey: 'INSERT SEARCH ONLY API KEY',
+        indexName: 'confluence',
+        routing: true
+      };
+      const search = instantsearch(options);
+      // initialize RefinementList
+      search.addWidget(
+        instantsearch.widgets.refinementList({
+          container: '#refinement-list',
+          attributeName: 'categories'
+        })
+      );
+      // initialize SearchBox
+        search.addWidget(
+          instantsearch.widgets.searchBox({
+            container: '#search-box',
+            placeholder: 'Search for products'
+          })
+        );
+      // initialize hits widget
+      search.addWidget(
+          instantsearch.widgets.hits({
+            container: '#hits',
+            templates: {
+              empty: 'No results',
+              item: '<em>Hit {{objectID}}</em>: {{{_highlightResult.name.value}}}'
+            }
+          })
+        );
+
+      search.start();
+    </script>
+
+  </body>
+</html>

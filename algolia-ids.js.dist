@@ -1,0 +1,4 @@
+module.exports = {
+  apiKey: 'Here API KEY',
+  appId: 'Here APP ID'
+};

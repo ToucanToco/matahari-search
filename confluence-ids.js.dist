@@ -1,0 +1,5 @@
+module.exports = {
+  host: 'https://{company name}.atlassian.net/wiki',
+  username: 'user@email.com',
+  password: 'xxxx'
+};
