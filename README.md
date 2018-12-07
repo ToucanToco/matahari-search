@@ -2,8 +2,8 @@
 
 Toucan Toco's Confluence indexing script for Algolia
 
+<img src="matahari.png" style="max-width: 400px;"/>
 
-![](matahari.png)
 > She knows if you're Writing The F*ing Manual.
 > She's been secretly documenting your documentation.
 
